@@ -1,0 +1,32 @@
+$def with()
+<html>
+	<head>
+		<title>Zhi Searcher</title>
+		<meta charset="gbk"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/watermoon.css">
+	</head>
+	<body class="index">
+		<div id="allunits" class="maincenter">
+			<div id="form" align="center">
+				<span id="title" class="maintitle">Zhi Searcher - Answer</span>
+				<br>
+				<span class="term">
+					<a href="/">Question</a>
+					<a href="/ans">Answer</a>
+					<a href="/topictree">Topic Tree</a>
+				</span>
+				<br><br>
+				<form action="/ansres" method="GET">
+				    <input type="text" id="Query" name="Query" value="" class="textbox-purple" />
+				    <br><br>
+				    <span>Result Sort:</span>
+				    <select name="select_prior">
+				    <option value = "None" selected = "selected">None</option>
+				    <option value = "like">Likes</option>
+				    </select>
+				    <input type="submit" value="Go!"/ class="button-green">
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

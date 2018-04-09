@@ -1,0 +1,66 @@
+$def with (query, results, totalResults, page, RPP, prior)
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>$query Page of results: $page</title>
+		<meta charset="gbk"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/watermoon.css">
+	</head>
+	<body class="result">
+		<div class="floatattop">
+			<div class="horizoncenter">
+				<form action="/ansres" method="GET">
+					<span class="normaltitle">Zhi Searcher - Answer&nbsp;</span>
+				    <input type="text" id="Query" name="Query" value=$query class="textbox-purple" />
+				    <input type="submit" value="Go!" class="button-green" />
+				</form>
+			</div>
+		</div>
+		<br><br>
+		<div class="contents">
+			<div class="navigation">
+				<a href="/">Home</a>
+				<a href="/qstres?Query=$query&Go%21=">Question</a>
+				<a href="/ansres?Query=$query&Go%21=">Answer</a>
+			</div>
+			<br><br>
+			$if results:
+				<span id="totalresults" class="totalresults">
+					Total Results: $totalResults
+					$if prior == 'like':
+						Priority: Likes
+				    $else:
+				        Priority: None
+				</span>
+			    $for result in results:
+			    	<div class="singleresult">
+		    			<a href="https://www.zhihu.com/question/$result[-2]/answer/$result[-1]">$result[1]</a><br>
+		    			<div class="abstract">
+		    				$if len(result[0])>250:
+		    					$result[0][:250]
+		    					<br><font color="#c30068"><b>...$len(result[0]) Words in All</b></font><br>
+		    				$else:
+		    					$result[0]
+		    					<br><font color="#c30068"><b>$len(result[0]) Words in All</b></font><br>
+		    			</div>
+		    			<div class="topic">
+		    				Author: $result[2]
+						</div>
+						<br>
+						<div>
+					   		<span class="resulturl">Likes: <b>$result[3]</b></span><br>
+					   	</div>
+			    	</div>
+			$else:
+				<br>No Result!!!!!<br>
+		</div>
+		<div class="sinkatbottom">
+	    	<div class="jumppage">
+		    	<span class="flpage"><a href="/ansres?Query=$query&Go%21=&pg=1">Front Page</a></span>
+			    $for i in range(max(2, page-4), min(page+4, totalResults/RPP)):
+			    	<span class="midpage"><a href="/ansres?Query=$query&Go%21=&pg=$i">$i</a></span>
+			    <span class="flpage"><a href="/ansres?Query=$query&Go%21=&pg=$(totalResults/RPP+1)">Last Page</a></span>
+			</div>
+		</div>
+	</body>
+</html>

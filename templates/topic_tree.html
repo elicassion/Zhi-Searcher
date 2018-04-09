@@ -1,0 +1,60 @@
+$def with(itself_info, children_info, parent_info)
+<html>
+	<head>
+		<title>Zhi Searcher - Topic Tree</title>
+		<meta charset="gbk"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/watermoon.css">
+	</head>
+	<body class="index">
+		<div id="allunits" class="maincenter">
+			<div id="form" align="center">
+				<span id="title" class="maintitle">Zhi Searcher - Topic Tree</span>
+				<span class="term">
+					<a href="/">Question</a>
+					<a href="/ans">Answer</a>
+					<a href="/topictree">Topic Tree</a>
+				</span>
+			</div>
+			<div class="topicform" align="left">
+				<div>
+					<span class="treename">Parent Topic: </span>
+					$if len(parent_info) > 0:
+						$for k in parent_info:
+							<div class="singaltopic">
+							<span class="button-parent"><a href="/topictree?Node=$k">$parent_info[k][0]</a></span>
+							<span><font color="#000000" size="2"><a href="$"/".join(parent_info[k][1].split('/')[:5])">link</a></font></span>
+							</div>
+							<br>
+					$else:
+						$for k in itself_info:
+							<div class="singaltopic">
+							<span class="button-parent"><a href="/topictree?Node=$int(k)">$itself_info[k][0]</a></span>
+							<span><font color="#000000" size="2"><a href="$"/".join(itself_info[k][1].split('/')[:5])">link</a></font></span>
+							</div>
+							<br>
+				</div>
+				<br><br>
+				<div>
+					<span class="treename">Current Topic: </span>
+					$for k in itself_info:
+						<div class="singaltopic">
+						<span class="button-self"><a href="/topictree?Node=$int(k)">$itself_info[k][0]</a></span>
+						<span><font color="#000000" size="2"><a href="$"/".join(itself_info[k][1].split('/')[:5])">link</a></font></span>
+						</div><br>
+				</div>
+				<br><br>
+				<div>
+					<span class="treename">Children Topic: </span>
+					$if len(children_info) > 0:
+						$for k in children_info:
+							<div class="singaltopic">
+							<span class="button-children"><a href="/topictree?Node=$k">$children_info[k][0]</a></span>
+							<span><font color="#000000" size="2"><a href="$"/".join(children_info[k][1].split('/')[:5])">link</a></font></span>
+							</div><br>
+					$else:
+						<span class="treename"><div class="singaltopic">None</div></span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
